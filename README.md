@@ -62,7 +62,7 @@ You can still use the bot without it, but it is needed for real-time notificatio
 
 The lib truecallerjs is used as a module. The bot is able to detect phone number formats (country codes) as well as spacings from text. Upon input, it will look for a phone number and pass it to truecallerjs to get details. Selected details such as name & country are sent back to the user.
 
-The app is work in progress (WIP) and will provide real time notifications by detecting calling notifications and extracting phone number that is calling.
+The app is work in progress (WIP) and will provide real time notifications by detecting calling notifications by extracting phone number that is calling.
 
 <br>
 
