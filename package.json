@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@grammyjs/runner": "^1.0.4",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.3",
+    "grammy": "^1.13.1",
+    "truecallerjs": "^1.1.2"
+  }
+}
