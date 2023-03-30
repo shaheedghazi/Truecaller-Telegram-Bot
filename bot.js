@@ -110,7 +110,7 @@ bot.on("message", async (ctx) => {
             }
           }
         });
-        console.log(name);
+        console.log(`Name for ${ctx.message.text} is ${name}`);
         if (name) {
           await ctx.reply(name);
         }

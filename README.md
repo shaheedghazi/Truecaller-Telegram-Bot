@@ -35,8 +35,6 @@ Bot dev ID refers to the user ID of your Telegram account. This ensures there is
 
 </details>
 
-<br>
-
 #### It's advisable to run the bot using PM2 or any startup manager for persistent execution.
 
 <br>
