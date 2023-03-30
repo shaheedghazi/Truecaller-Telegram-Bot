@@ -1,9 +1,36 @@
 {
+  "name": "telecaller",
+  "description": "Get caller ID notifications on Telegram without installing the Truecaller app!",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "bin": {
+    "telecaller": "./bot.js"
+  },
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grahtni/Truecaller-Telegram-Bot.git"
+  },
+  "author": {
+    "name": "Zubin",
+    "email": "me@zubin.org.in",
+    "url": "https://zubin.org.in"
+  },
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Grahtni/Truecaller-Telegram-Bot/issues"
+  },
+  "homepage": "https://github.com/Grahtni/Truecaller-Telegram-Bot#readme",
   "dependencies": {
-    "@grammyjs/runner": "^1.0.4",
+    "@grammyjs/parse-mode": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
-    "grammy": "^1.13.1",
-    "truecallerjs": "^1.1.2"
+    "grammy": "^1.13.1"
+  },
+  "devDependencies": {
+    "truecallerjs": "^1.1.5"
   }
 }

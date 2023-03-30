@@ -12,11 +12,8 @@ Truecaller and other similar function apps are notorious for exploiting contact 
 
 ### Real Time Caller ID
 
-This requires a supplemental Android app to be installed to detect phone number calling and pass it to the bot using Telegram Client API, you'll need to create an app on https://my.telegram.org, and provide API_ID and API_HASH values. The app will detect calling notifications to get the phone number and use the client API to message the bot on your behalf.
+_Note:_ This is a work in progress. Options like an IFTTT applet can also be explored. A backend would be even more preferable. Please refer to the contributions section if you're willing to provide an implementation for the same and feel free to open a PR. The general gist is to notify the Caller ID through the bot in real time by accessing incoming call information.
 
-The app is a work in progress currently. In the future I plan to integrate a DBaaS connection which will eliminate the need for the client API. But it remains to be seen if the latency will not be a hindrance.
-
-You can still use the bot without it, but it is needed for real-time notifications. You'll need to manually copy paste the phone number after a call and send it to the bot, which in my opinion defeats the purpose of caller ID.
 
 <br>
 
@@ -24,15 +21,23 @@ You can still use the bot without it, but it is needed for real-time notificatio
 
 1. Clone git repo.
 2. Run ```npm i``` in project folder. This will install the required dependencies.
-3. Populate .env file with bot token, bot dev ID and Truecaller Installation ID (hereinafter referred to as IID).
-
-#### *Note:* Bot token can be obtained from @BotFather.
-
-#### Bot dev ID refers to the user ID of your Telegram account. This ensures there is no unauthorized access.
-
+3. Rename .env.example to .env and provide bot token, bot dev ID and Truecaller Installation ID (hereinafter referred to as IID).
 4. Run ```node bot``` to start the bot.
 
-#### It's advisable to run the bot using PM2 or any startup manager for persistent execution, as this ensures you won't have to have the terminal open. You can set up auto-start as well. Or pass a cron job.
+<details>
+
+<summary>
+Bot dev ID
+</summary>
+
+<br>
+Bot dev ID refers to the user ID of your Telegram account. This ensures there is no unauthorized access.
+
+</details>
+
+<br>
+
+#### It's advisable to run the bot using PM2 or any startup manager for persistent execution.
 
 <br>
 
@@ -62,21 +67,16 @@ You can still use the bot without it, but it is needed for real-time notificatio
 
 The lib truecallerjs is used as a module. The bot is able to detect phone number formats (country codes) as well as spacings from text. Upon input, it will look for a phone number and pass it to truecallerjs to get details. Selected details such as name & country are sent back to the user.
 
-The app is work in progress (WIP) and will provide real time notifications by detecting calling notifications by extracting phone number that is calling.
+Real time notifications are a work in progress (WIP).
 
 <br>
 
-    Copyright (C) 2023  Zubin
+### Contributions
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Feel free to contribute towards the overall codebase, or the real time notification feature which requires a backend and a supplemental Android app to communicate with the backend API.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+<br>
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+### License
+
+AGPL-3.0 ©️ Zubin
