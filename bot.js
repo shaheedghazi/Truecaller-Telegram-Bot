@@ -14,7 +14,7 @@
 require("dotenv").config();
 const { Bot, GrammyError, HttpError } = require("grammy");
 const { hydrateReply, parseMode } = require("@grammyjs/parse-mode");
-let BOT_DEVELOPER = 0 | process.env.BOT_DEVELOPER;
+# let BOT_DEVELOPER = 0 | process.env.BOT_DEVELOPER;
 const truecallerjs = require("truecallerjs");
 const cheerio = require("cheerio");
 const regex = /(?:\+\d{1,3}|\d{1})?(?:\s?\d{3}){2}\s?\d{4}/g;
@@ -25,12 +25,12 @@ const bot = new Bot(process.env.BOT_TOKEN);
 
 // Admin
 
-async function admin(ctx, next) {
-  ctx.config = {
-    botDeveloper: BOT_DEVELOPER,
-    isDeveloper: ctx.from?.id === BOT_DEVELOPER,
-  };
-  await next();
+# async function admin(ctx, next) {
+  #ctx.config = {
+   # botDeveloper: BOT_DEVELOPER,
+    #isDeveloper: ctx.from?.id === BOT_DEVELOPER,
+  #};
+  #await next();
 }
 
 // Response
