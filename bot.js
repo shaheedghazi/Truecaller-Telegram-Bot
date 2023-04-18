@@ -22,16 +22,6 @@ const regex = /(?:\+\d{1,3}|\d{1})?(?:\s?\d{3}){2}\s?\d{4}/g;
 
 const bot = new Bot(process.env.BOT_TOKEN);
 
-// Admin
-
-async function admin(ctx, next) {
-  ctx.config = {
-    botDeveloper: process.env.BOT_DEVELOPER,
-    isDeveloper: ctx.from?.id === process.env.BOT_DEVELOPER,
-  };
-  await next();
-}
-
 // Response
 
 async function responseTime(ctx, next) {
@@ -58,7 +48,6 @@ async function log(ctx, next) {
 
 bot.use(responseTime);
 bot.use(log);
-bot.use(admin);
 bot.use(hydrateReply);
 
 // Parse
@@ -68,13 +57,7 @@ bot.api.config.use(parseMode("Markdown"));
 // Commands
 
 bot.command("start", async (ctx) => {
-  if (ctx.config.isDeveloper) {
-    await ctx.reply("*Welcome! ✨*\n_Send a phone number._");
-  } else {
-    await ctx.reply(
-      "*You don't have authorization to use the bot.*\n_Deploy your own from https://github.com/losparviero/Truecaller-Telegram-Bot_"
-    );
-  }
+  await ctx.reply("*Welcome! ✨*\n_Send a phone number._");
   console.log("User invoked start command:", ctx.chat);
 });
 
@@ -87,46 +70,43 @@ bot.command("help", async (ctx) => {
 // Messages
 
 bot.on("message", async (ctx) => {
-  if (ctx.config.isDeveloper) {
-    if (regex.test(ctx.msg.text)) {
-      var searchData = {
-        number: ctx.msg.text,
-        countryCode: "IN",
-        installationId: process.env.IID,
-        output: "HTML",
-      };
-      var sn = truecallerjs.searchNumber(searchData);
-      sn.then(async function (response) {
-        //console.log(response);
-        const $ = cheerio.load(response);
-        let name = "";
-        $("td").each(function (i, el) {
-          if ($(this).text() === "name") {
-            if ($(this).next().text() !== "") {
-              name = $(this).next().text();
-              return false;
-            }
+  if (regex.test(ctx.msg.text)) {
+    var searchData = {
+      number: ctx.msg.text,
+      countryCode: "IN",
+      installationId: process.env.IID,
+      output: "HTML",
+    };
+    var sn = truecallerjs.searchNumber(searchData);
+    sn.then(async function (response) {
+      const $ = cheerio.load(response);
+      let name = "";
+      $("td").each(function (i, el) {
+        if ($(this).text() === "name") {
+          if ($(this).next().text() !== "") {
+            name = $(this).next().text();
+            return false;
           }
-        });
-        console.log(`Name for ${ctx.message.text} is ${name}`);
-        if (name) {
-          await ctx.reply(name);
         }
-      }).catch(async function (error) {
-        console.log(error);
       });
-    } else {
-      await ctx.reply("*No phone number detected!*", {
-        reply_to_message_id: ctx.msg.message_id,
-      });
-    }
-  } else {
-    await ctx.reply(
-      "*You don't have authorization to use the bot.*\n_Deploy your own from https://github.com/losparviero/Truecaller-Telegram-Bot_",
-      {
-        reply_to_message_id: ctx.msg.message_id,
+      console.log(`Name for ${ctx.message.text} is ${name}`);
+      if (name) {
+        await ctx.reply(name);
+      } else {
+        await ctx.reply("*No information found for the given number!*", {
+          reply_to_message_id: ctx.msg.message_id,
+        });
       }
-    );
+    }).catch(async function (error) {
+      console.log(error);
+      await ctx.reply("*Error occurred!*", {
+        reply_to_message_id: ctx.msg.message_id,
+      });
+    });
+  } else {
+    await ctx.reply("*No phone number detected!*", {
+      reply_to_message_id: ctx.msg.message_id,
+    });
   }
 });
 
